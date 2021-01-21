@@ -1,0 +1,86 @@
+[
+  {
+    "id": "realms",
+    "title": "Realms",
+    "tags": ["WebXR", "ThreeJS", "Voxels"],
+    "info": "A voxel editor with a recursive twist.",
+    "url": "realms.gatunes.com"
+  },
+  {
+    "id": "trolltower",
+    "title": "TrollTower",
+    "tags": ["WebXR", "ThreeJS", "Physics"],
+    "info": "A multiplayer climbing game.",
+    "url": "vrblocks.gatunes.com"
+  },
+  {
+    "id": "spacetrain",
+    "title": "Space Train",
+    "tags": ["WebXR", "ThreeJS", "Physics"],
+    "info": "A combined set of examples for the blocks-editor.",
+    "url": "train.gatunes.com"
+  },
+  {
+    "id": "blockseditor",
+    "title": "Blocks Editor",
+    "tags": ["WebXR", "ThreeJS", "Voxels"],
+    "info": "A general purpose voxels editor.",
+    "url": "blocks-editor.gatunes.com"
+  },
+  {
+    "id": "beats",
+    "title": "Beats",
+    "tags": ["WebXR", "ThreeJS", "WebAudio"],
+    "info": "A live performance sandbox in VR.",
+    "url": "beats.gatunes.com"
+  },
+  {
+    "id": "sambaportals",
+    "title": "sambaportals",
+    "tags": ["WebGL", "ThreeJS", "GLSL"],
+    "info": "WebGL portals experiment.",
+    "url": "glitch.com/~sambaportals"
+  },
+  {
+    "id": "vaporcity",
+    "title": "vaporcity",
+    "tags": ["WebGL", "ThreeJS", "GLSL"],
+    "info": "4 draw-call city.",
+    "url": "glitch.com/~vaporcity"
+  },
+  {
+    "id": "blocks",
+    "title": "Blocks",
+    "tags": ["WebXR", "ThreeJS", "Multiplayer"],
+    "info": "A multiplayer voxels engine.",
+    "url": "blocks.gatunes.com"
+  },
+  {
+    "id": "glblocks",
+    "title": "GLBlocks",
+    "tags": ["C++", "OpenGL", "GLFW"],
+    "info": "A \"modern\" c++ opengl voxels engine.",
+    "url": "github.com/danielesteban/opengl"
+  },
+  {
+    "id": "glcannon",
+    "title": "GLCannon",
+    "tags": ["C++", "OpenGL ES", "Android"],
+    "info": "An opensorce C++ OpenGL ES 2.0 engine for Android. Built on top of SDL and the Bullet physics engine, it renders textured meshes with real-time lightning and rigid body simulations at 60FPS in a low-end phone.",
+    "url": "play.google.com/store/apps/details?id=com.gatunes.glcannon"
+  },
+  {
+    "id": "racer",
+    "title": "Racer",
+    "tags": ["WebGL", "ThreeJS", "Multiplayer"],
+    "info": "A peer-to-peer racing web game. It features a procedurally generated track with particle effects and syncronizes it's clients through a WebRTC data channel.",
+    "url": "danigatunes.itch.io/racer"
+  },
+  {
+    "id": "retrospective",
+    "title": "Retrospective",
+    "tags": ["C++", "OpenGL", "SDL"],
+    "info": "A retro-style platformer for windows with a 3D perspective. Features procedural backgrounds, destructible environment, a level editor and gamepad support.",
+    "url": "danigatunes.itch.io/retrospective"
+  }
+]
