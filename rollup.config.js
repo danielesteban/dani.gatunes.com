@@ -56,7 +56,6 @@ export default {
       targets: [
         { src: 'screenshot.png', dest: 'dist' },
         { src: 'src/index.html', dest: 'dist' },
-        { src: 'src/index.css', dest: 'dist' },
         { src: 'fonts/*.ttf', dest: 'dist/fonts' },
       ],
     }),

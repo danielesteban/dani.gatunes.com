@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Print Char 21';
   src: url(./fonts/printchar21.ttf);
+  font-display: swap;
 }
 
 *, *:after, *:before {
