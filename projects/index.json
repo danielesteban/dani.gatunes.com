@@ -15,14 +15,14 @@
   },
   {
     "id": "spacetrain",
-    "title": "Space Train",
+    "title": "SpaceTrain",
     "tags": ["WebXR", "ThreeJS", "Physics"],
     "info": "A combined set of examples for the blocks-editor.",
     "url": "train.gatunes.com"
   },
   {
     "id": "blockseditor",
-    "title": "Blocks Editor",
+    "title": "BlocksEditor",
     "tags": ["WebXR", "ThreeJS", "Voxels"],
     "info": "A general purpose voxels editor.",
     "url": "blocks-editor.gatunes.com"
@@ -36,14 +36,14 @@
   },
   {
     "id": "sambaportals",
-    "title": "sambaportals",
+    "title": "SambaPortals",
     "tags": ["WebGL", "ThreeJS", "GLSL"],
     "info": "WebGL portals experiment.",
     "url": "glitch.com/~sambaportals"
   },
   {
     "id": "vaporcity",
-    "title": "vaporcity",
+    "title": "VaporCity",
     "tags": ["WebGL", "ThreeJS", "GLSL"],
     "info": "4 draw-call city.",
     "url": "glitch.com/~vaporcity"
