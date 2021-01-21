@@ -120,7 +120,7 @@
   };
 
   onMount(() => {
-    const hints = { antialias: false, preserveDrawingBuffer: false };
+    const hints = { alpha: false, antialias: false, preserveDrawingBuffer: false };
     const GL = canvas.getContext('webgl', hints) || canvas.getContext('experimental-webgl', hints);
     if (!GL) return;
 

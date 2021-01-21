@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -16,6 +17,19 @@ const production = !process.env.ROLLUP_WATCH;
 const cname = (domain) => ({
   writeBundle() {
     fs.writeFileSync(path.join(__dirname, 'dist', 'CNAME'), domain);
+  },
+});
+
+const images = ({ src, dest }) => ({
+  writeBundle() {
+    const images = fs.readdirSync(src).filter((name) => ~name.indexOf('.png'));
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest);
+    }
+    return Promise.all(images.map((image) => Promise.all([
+      sharp(path.join(src, image)).toFile(path.join(dest, image.replace('.png', '.webp'))),
+      sharp(path.join(src, image)).toFile(path.join(dest, image)),
+    ])));
   },
 });
 
@@ -44,9 +58,9 @@ export default {
         { src: 'src/index.html', dest: 'dist' },
         { src: 'src/index.css', dest: 'dist' },
         { src: 'fonts/*.ttf', dest: 'dist/fonts' },
-        { src: 'projects/*.png', dest: 'dist/projects' },
       ],
     }),
+    images({ src: path.join(__dirname, 'projects'), dest: path.join(__dirname, 'dist', 'projects') }),
     string({
       include: ["**/*.frag","**/*.vert"],
     }),

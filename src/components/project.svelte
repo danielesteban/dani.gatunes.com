@@ -4,10 +4,10 @@
 
 <div class="project">
   <div class="wrapper">
-    <img
-      alt={data.title}
-      src={`projects/${data.id}.png`}
-    >
+    <picture>
+      <source srcset={`projects/${data.id}.webp`} type="image/webp">
+      <img src={`projects/${data.id}.png`} alt={data.title}>
+    </picture>
     <div class="flipper">
       <div class="info">
         <h2>{data.title}</h2>
@@ -53,7 +53,7 @@
     box-shadow: 0 3px 10px rgba(0,0,0,.156863), 0 3px 10px rgba(0,0,0,.227451);
     overflow: hidden;
   }
-  .wrapper > img {
+  .wrapper > picture {
     height: 100%;
   }
   .flipper {
