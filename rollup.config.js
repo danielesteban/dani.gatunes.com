@@ -53,9 +53,9 @@ export default {
     commonjs(),
     copy({
       targets: [
-        { src: 'fonts/*.ttf', dest: 'dist/fonts' },
         { src: 'screenshot.png', dest: 'dist' },
         { src: 'src/index.html', dest: 'dist' },
+        { src: 'src/fonts/*.ttf', dest: 'dist/fonts' },
       ],
     }),
     images({

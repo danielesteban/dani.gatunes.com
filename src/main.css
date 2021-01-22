@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Print Char 21';
-  src: url(./fonts/printchar21.ttf);
+  src: url(/fonts/printchar21.ttf);
 }
 
 *, *:after, *:before {

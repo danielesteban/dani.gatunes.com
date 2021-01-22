@@ -37,15 +37,20 @@
     margin: 0;
   }
   h5 {
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.75rem;
   }
   .resources {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
   }
   .resources > a {
+    background: rgba(255, 255, 255, .05);
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.117647), 0 1px 4px rgba(0,0,0,.117647);
+    padding: 0 0.5rem;
     color: #bbb;
-    margin: 0 1rem;
+    margin: 0 0.5rem;
+    text-decoration: none;
+    font-size: 0.8em;
   }
 </style>

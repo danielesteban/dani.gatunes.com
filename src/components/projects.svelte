@@ -1,38 +1,50 @@
 <script>
-  export let data;
+  import Projects from '../../projects/index.json';
 </script>
 
-<div class="project">
-  <div class="wrapper">
-    <picture>
-      <source srcset={`projects/${data.id}.webp`} type="image/webp">
-      <img src={`projects/${data.id}.png`} alt={data.title}>
-    </picture>
-    <div class="flipper">
-      <div class="info">
-        <h2>{data.title}</h2>
-        <div class="tags">
-          {#each data.tags as tag}
-            <div>
-              {tag}
+<div class="projects">
+  {#each Projects as project (project.id)}
+    <div class="project">
+      <div class="wrapper">
+        <picture>
+          <source srcset={`/projects/${project.id}.webp`} type="image/webp">
+          <img src={`/projects/${project.id}.png`} alt={project.title}>
+        </picture>
+        <div class="flipper">
+          <div class="info">
+            <h2>{project.title}</h2>
+            <div class="tags">
+              {#each project.tags as tag}
+                <div>
+                  {tag}
+                </div>
+              {/each}
             </div>
-          {/each}
+            <p>{project.info}</p>
+            <div class="url">
+              https://{project.url}
+            </div>
+            <a
+              href={`https://${project.url}`}
+              rel="noopener noreferrer"
+              target="_blank"
+            />
+          </div>
         </div>
-        <p>{data.info}</p>
-        <div class="url">
-          https://{data.url}
-        </div>
-        <a
-          href={`https://${data.url}`}
-          rel="noopener noreferrer"
-          target="_blank"
-        />
       </div>
     </div>
-  </div>
+  {/each}
 </div>
 
 <style>
+  .projects {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding-top: 1rem;
+  }
   .project {
     padding: 0 1rem 2rem;
     width: 100%;
