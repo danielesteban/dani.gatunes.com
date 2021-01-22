@@ -1,23 +1,50 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
 
-  let animationHandler;
+  let animation;
   let canvas;
   let ctx;
   let image;
-  let grid;
   let pixels;
 
+  const size = 8;
+  const scale = 2;
+  const grid = [];
+  for (let y = 0; y < size; y += 1) {
+    for (let x = 0; x < size; x += 1) {
+      if (
+        Math.sqrt(
+          ((y - (size * 0.5) + 0.5) ** 2)
+          + ((x - (size * 0.5) + 0.5) ** 2)
+        ) < size * 0.5
+      ) {
+        const pixel = [];
+        for (let py = 0; py < scale; py += 1) {
+          for (let px = 0; px < scale; px += 1) {
+            pixel.push(
+              (
+                (((y * scale) + py) * (size * scale))
+                + ((x * scale) + px)
+              ) * 4
+            );
+          }
+        }
+        grid.push(pixel);
+      }
+    }
+  }
+
+  const step = (sample) => (
+    Math.min(
+      Math.max(
+        pixels.data[sample] + Math.floor(Math.random() * 65) - 32,
+        100
+      ),
+      228
+    )
+  );
+
   const animate = (time) => {
-    const step = (sample) => (
-      Math.min(
-        Math.max(
-          pixels.data[sample] + Math.floor(Math.random() * 65) - 32,
-          100
-        ),
-        228
-      )
-    );
     grid.forEach((pixel) => {
       const r = step(pixel[0]);
       const g = step(pixel[0] + 1);
@@ -30,37 +57,10 @@
     });
     ctx.putImageData(pixels, 0, 0);
     image = canvas.toDataURL('image/png');
-
-    animationHandler = setTimeout(animate, 100);
+    animation = setTimeout(animate, 100);
   };
 
   onMount(() => {
-    const size = 8;
-    const scale = 2;
-    const pixel = [];
-    for (let y = 0; y < scale; y += 1) {
-      for (let x = 0; x < scale; x += 1) {
-        pixel.push({ x, y });
-      }
-    }
-    grid = [];
-    for (let y = 0; y < size; y += 1) {
-      for (let x = 0; x < size; x += 1) {
-        if (
-          Math.sqrt(
-            ((y - (size * 0.5) + 0.5) ** 2)
-            + ((x - (size * 0.5) + 0.5) ** 2)
-          ) < size * 0.5
-        ) {
-          grid.push(pixel.map(({ x: px, y: py }) => (
-            (
-              (((y * scale) + py) * (size * scale))
-              + ((x * scale) + px)
-            ) * 4
-          )));
-        }
-      }
-    }
     canvas.width = size * scale;
     canvas.height = size * scale;
     ctx = canvas.getContext('2d');
@@ -82,7 +82,7 @@
   });
 
   onDestroy(() => {
-    clearTimeout(animationHandler);
+    clearTimeout(animation);
   });
 </script>
 
