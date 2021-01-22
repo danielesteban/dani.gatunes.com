@@ -121,7 +121,6 @@
   }
   .url {
     color: rgba(255, 255, 255, .5);
-    min-width: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
