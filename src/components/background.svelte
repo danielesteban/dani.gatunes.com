@@ -76,6 +76,9 @@
   };
 
   const onResize = () => {
+    if (!GL) {
+      return;
+    }
     const {
       indices,
       light,
@@ -149,9 +152,20 @@
   };
 
   onMount(() => {
-    const hints = { alpha: false, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: false };
-    GL = canvas.getContext('webgl', hints) || canvas.getContext('experimental-webgl', hints);
-    if (!GL) return;
+    const hints = {
+      alpha: false,
+      antialias: false,
+      depth: false,
+      stencil: false,
+      preserveDrawingBuffer: false,
+    };
+    GL = (
+      canvas.getContext('webgl', hints)
+      || canvas.getContext('experimental-webgl', hints)
+    );
+    if (!GL) {
+      return;
+    }
 
     buffers = {
       indices: GL.createBuffer(),
