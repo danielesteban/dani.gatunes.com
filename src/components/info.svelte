@@ -45,7 +45,7 @@
   }
   .resources > a {
     background: rgba(255, 255, 255, .05);
-    border-radius: 4px;
+    border-radius: 2px;
     box-shadow: 0 1px 6px rgba(0,0,0,.117647), 0 1px 4px rgba(0,0,0,.117647);
     padding: 0 0.5rem;
     color: #bbb;
