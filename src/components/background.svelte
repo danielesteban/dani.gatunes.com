@@ -54,10 +54,10 @@
   const animate = (time) => {
     const { count, grid, lightmap } = buffers;
     grid.forEach(([x, y], i) => {
-      const color = (
+      const light = (
         (1 + noise.simplex3(x / 100, y / 100, time * 0.0003)) * 1.1 * 128
       ) / 1000;
-      for (let v = 0; v < 4; v += 1) lightmap[(i * 4) + v] = color;
+      lightmap.set([light, light, light, light], i * 4);
     });
     GL.bufferSubData(GL.ARRAY_BUFFER, 0, lightmap);
     GL.uniform2fv(uniforms.pointer, pointer);
