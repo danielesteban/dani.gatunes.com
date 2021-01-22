@@ -5,21 +5,23 @@
   import vertexShader from '../shaders/background.vert';
   import fragmentShader from '../shaders/background.frag';
 
+  let animation;
+  let buffers;
   let canvas;
-  let state;
-  
-  const QUAD_WIDTH = 20;
-  const QUAD_HEIGHT = 30;
+  let GL;
+  let shader;
+
+  const noise = new Noise(Math.random());
+  const pointer = vec2.create();
+  const projection = mat4.create();
+  const scale = 0.6;
 
   const animate = (time) => {
     const {
-      GL,
       count,
       grid,
       lightmap,
-      noise,
-      pointer,
-    } = state;
+    } = buffers;
     grid.forEach(([x, y], i) => {
       const color = (
         (1 + noise.simplex3(x / 100, y / 100, time * 0.0003)) * 1.1 * 128
@@ -32,20 +34,16 @@
       pointer.needsUpdate = false;
     }
     GL.drawElements(GL.TRIANGLES, count, GL.UNSIGNED_SHORT, 0);
-    state.animationHandler = requestAnimationFrame(animate);
+    animation = requestAnimationFrame(animate);
   };
 
   const reset = () => {
     const {
-      GL,
       indices,
       light,
       position,
-      projection,
       quad,
-      scale,
-      shader,
-    } = state;
+    } = buffers;
 
     canvas.width = window.innerWidth * scale;
     canvas.height = window.innerHeight * scale;
@@ -53,6 +51,8 @@
     mat4.ortho(projection, 0, GL.drawingBufferWidth, 0, GL.drawingBufferHeight, 0, 1.0);
     GL.uniformMatrix4fv(GL.getUniformLocation(shader, 'transform'), false, projection);
 
+    const QUAD_WIDTH = 20;
+    const QUAD_HEIGHT = 30;
     const w = QUAD_WIDTH * 0.5;
     const h = QUAD_HEIGHT * 0.5;
     const quadVertices = [
@@ -88,8 +88,8 @@
         grid.push(vec2.fromValues(x, y));
       }
     }
-    state.count = index.length;
-    state.grid = grid;
+    buffers.count = index.length;
+    buffers.grid = grid;
 
     const positionLocation = GL.getAttribLocation(shader, 'position');
     GL.bindBuffer(GL.ARRAY_BUFFER, position);
@@ -104,59 +104,58 @@
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, indices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(index), GL.STATIC_DRAW);
 
-    state.lightmap = new Float32Array(grid.length * 4);
+    buffers.lightmap = new Float32Array(grid.length * 4);
     const lightLocation = GL.getAttribLocation(shader, 'light');
     GL.bindBuffer(GL.ARRAY_BUFFER, light);
-    GL.bufferData(GL.ARRAY_BUFFER, state.lightmap, GL.STREAM_DRAW);
+    GL.bufferData(GL.ARRAY_BUFFER, buffers.lightmap, GL.STREAM_DRAW);
     GL.vertexAttribPointer(lightLocation, 1, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(lightLocation);
   };
 
   const onMouseMove = ({ clientX: x, clientY: y }) => {
-    const { pointer, scale } = state;
     pointer[0] = x * scale;
     pointer[1] = canvas.height - (y * scale);
     pointer.needsUpdate = true;
   };
 
   onMount(() => {
-    const hints = { alpha: false, antialias: false, preserveDrawingBuffer: false };
-    const GL = canvas.getContext('webgl', hints) || canvas.getContext('experimental-webgl', hints);
+    const hints = { alpha: false, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: false };
+    GL = canvas.getContext('webgl', hints) || canvas.getContext('experimental-webgl', hints);
     if (!GL) return;
 
-    state = {
-      GL,
+    buffers = {
       position: GL.createBuffer(),
       light: GL.createBuffer(),
       quad: GL.createBuffer(),
       indices: GL.createBuffer(),
-      shader: GL.createProgram(),
-      noise: new Noise(Math.random()),
-      pointer: vec2.create(),
-      projection: mat4.create(),
-      scale: 0.6,
     };
 
+    shader = GL.createProgram();
     const vertex = GL.createShader(GL.VERTEX_SHADER);
     GL.shaderSource(vertex, vertexShader);
     GL.compileShader(vertex);
     const fragment = GL.createShader(GL.FRAGMENT_SHADER);
     GL.shaderSource(fragment, fragmentShader);
     GL.compileShader(fragment);
-    GL.attachShader(state.shader, vertex);
-    GL.attachShader(state.shader, fragment);
-    GL.linkProgram(state.shader);
-    GL.useProgram(state.shader);
-    GL.uniform1f(GL.getUniformLocation(state.shader, 'pointerHalo'), 300 * state.scale);
-    state.pointer.uniform = GL.getUniformLocation(state.shader, 'pointerPosition');
+    GL.attachShader(shader, vertex);
+    GL.attachShader(shader, fragment);
+    GL.linkProgram(shader);
+    GL.useProgram(shader);
+    GL.uniform1f(GL.getUniformLocation(shader, 'pointerHalo'), 300 * scale);
+    pointer.uniform = GL.getUniformLocation(shader, 'pointerPosition');
 
     reset();
-
     animate(0);
   });
 
   onDestroy(() => {
-    cancelAnimationFrame(state.animationHandler);
+    cancelAnimationFrame(animation);
+    if (GL) {
+      const extension = GL.getExtension('WEBGL_lose_context');
+      if (extension) {
+        extension.loseContext();
+      }
+    }
   });
 </script>
 
