@@ -17,11 +17,7 @@
   const scale = 0.6;
 
   const animate = (time) => {
-    const {
-      count,
-      grid,
-      lightmap,
-    } = buffers;
+    const { count, grid, lightmap } = buffers;
     grid.forEach(([x, y], i) => {
       const color = (
         (1 + noise.simplex3(x / 100, y / 100, time * 0.0003)) * 1.1 * 128
@@ -83,7 +79,6 @@
           vertices.push(x + v[0], canvas.height - y + v[1]);
           quads.push(x, canvas.height - y);
         });
-        // eslint-disable-next-line no-loop-func
         quadIndices.forEach((i) => index.push(offset + i));
         grid.push(vec2.fromValues(x, y));
       }
@@ -124,10 +119,10 @@
     if (!GL) return;
 
     buffers = {
-      position: GL.createBuffer(),
-      light: GL.createBuffer(),
-      quad: GL.createBuffer(),
       indices: GL.createBuffer(),
+      light: GL.createBuffer(),
+      position: GL.createBuffer(),
+      quad: GL.createBuffer(),
     };
 
     shader = GL.createProgram();
