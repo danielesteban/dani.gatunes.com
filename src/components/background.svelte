@@ -10,28 +10,28 @@
   let program;
 
   const noise = new Noise(Math.random());
+  const pixelWidth = 20;
+  const pixelHeight = 30;
   const pointer = vec2.create();
   const projection = mat4.create();
-  const quadWidth = 20;
-  const quadHeight = 30;
   const scale = 0.6;
   
   const vertexShader = `
     precision mediump float;
 
-    attribute vec2 position;
-    attribute vec2 quad;
     attribute float light;
+    attribute vec2 pixel;
+    attribute vec2 position;
     varying vec4 fragColor;
-    uniform mat4 transform;
     uniform float pointerHalo;
     uniform vec2 pointerPosition;
+    uniform mat4 transform;
 
     void main(void) {
       float vertexLight = light;
       float distance = sqrt(
-        pow(pointerPosition.x - quad.x, 2.0)
-        + pow(pointerPosition.y - quad.y, 2.0)
+        pow(pointerPosition.x - pixel.x, 2.0)
+        + pow(pointerPosition.y - pixel.y, 2.0)
       );
       if (distance <= pointerHalo) {
         float halo = ((pointerHalo - distance) / pointerHalo) * 0.25;
@@ -79,8 +79,8 @@
     const {
       indices,
       light,
+      pixel,
       position,
-      quad,
     } = buffers;
 
     canvas.width = window.innerWidth * scale;
@@ -89,37 +89,37 @@
     mat4.ortho(projection, 0, GL.drawingBufferWidth, 0, GL.drawingBufferHeight, 0, 1.0);
     GL.uniformMatrix4fv(GL.getUniformLocation(program, 'transform'), false, projection);
 
-    const w = quadWidth * 0.5;
-    const h = quadHeight * 0.5;
-    const quadVertices = [
+    const w = pixelWidth * 0.5;
+    const h = pixelHeight * 0.5;
+    const pixelVertices = [
       [-w, -h],
       [w, -h],
       [w, h],
       [-w, h],
     ];
-    const quadIndices = [
+    const pixelIndices = [
       0, 1, 2,
       2, 3, 0,
     ];
     const vertices = [];
-    const quads = [];
+    const pixels = [];
     const index = [];
     const grid = [];
     for (
-      let y = (canvas.height % quadHeight) * 0.5, offset = 0;
-      y < canvas.height + quadHeight * 0.5;
-      y += quadHeight
+      let y = (canvas.height % pixelHeight) * 0.5, offset = 0;
+      y < canvas.height + pixelHeight * 0.5;
+      y += pixelHeight
     ) {
       for (
-        let x = (canvas.width % quadWidth) * 0.5;
-        x < canvas.width + quadWidth * 0.5;
-        x += quadWidth, offset += 4
+        let x = (canvas.width % pixelWidth) * 0.5;
+        x < canvas.width + pixelWidth * 0.5;
+        x += pixelWidth, offset += 4
       ) {
-        quadVertices.forEach((v) => {
+        pixelVertices.forEach((v) => {
           vertices.push(x + v[0], canvas.height - y + v[1]);
-          quads.push(x, canvas.height - y);
+          pixels.push(x, canvas.height - y);
         });
-        quadIndices.forEach((i) => index.push(offset + i));
+        pixelIndices.forEach((i) => index.push(offset + i));
         grid.push(vec2.fromValues(x, y));
       }
     }
@@ -131,11 +131,11 @@
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(vertices), GL.STATIC_DRAW);
     GL.vertexAttribPointer(positionLocation, 2, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(positionLocation);
-    const quadLocation = GL.getAttribLocation(program, 'quad');
-    GL.bindBuffer(GL.ARRAY_BUFFER, quad);
-    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(quads), GL.STATIC_DRAW);
-    GL.vertexAttribPointer(quadLocation, 2, GL.FLOAT, 0, 0, 0);
-    GL.enableVertexAttribArray(quadLocation);
+    const pixelLocation = GL.getAttribLocation(program, 'pixel');
+    GL.bindBuffer(GL.ARRAY_BUFFER, pixel);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(pixels), GL.STATIC_DRAW);
+    GL.vertexAttribPointer(pixelLocation, 2, GL.FLOAT, 0, 0, 0);
+    GL.enableVertexAttribArray(pixelLocation);
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, indices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(index), GL.STATIC_DRAW);
 
@@ -155,8 +155,8 @@
     buffers = {
       indices: GL.createBuffer(),
       light: GL.createBuffer(),
+      pixel: GL.createBuffer(),
       position: GL.createBuffer(),
-      quad: GL.createBuffer(),
     };
 
     program = GL.createProgram();
