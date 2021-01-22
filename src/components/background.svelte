@@ -125,16 +125,18 @@
     buffers.count = index.length;
     buffers.grid = grid;
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, position);
-    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(vertices), GL.STATIC_DRAW);
-    GL.vertexAttribPointer(attributes.position, 2, GL.FLOAT, 0, 0, 0);
-    GL.enableVertexAttribArray(attributes.position);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, indices);
+    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(index), GL.STATIC_DRAW);
+
     GL.bindBuffer(GL.ARRAY_BUFFER, pixel);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(pixels), GL.STATIC_DRAW);
     GL.vertexAttribPointer(attributes.pixel, 2, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(attributes.pixel);
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, indices);
-    GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(index), GL.STATIC_DRAW);
+  
+    GL.bindBuffer(GL.ARRAY_BUFFER, position);
+    GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(vertices), GL.STATIC_DRAW);
+    GL.vertexAttribPointer(attributes.position, 2, GL.FLOAT, 0, 0, 0);
+    GL.enableVertexAttribArray(attributes.position);
 
     buffers.lightmap = new Float32Array(grid.length * 4);
     GL.bindBuffer(GL.ARRAY_BUFFER, light);
