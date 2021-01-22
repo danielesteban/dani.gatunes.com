@@ -19,8 +19,6 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.1.0",
     "eslint": "^7.18.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-svelte3": "^3.0.0",
     "rollup": "^2.37.1",
     "rollup-plugin-copy": "^3.3.0",
