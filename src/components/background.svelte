@@ -83,8 +83,9 @@
       position,
     } = buffers;
 
-    canvas.width = window.innerWidth * scale;
-    canvas.height = window.innerHeight * scale;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * scale;
+    canvas.height = rect.height * scale;
     GL.viewport(0, 0, GL.drawingBufferWidth, GL.drawingBufferHeight);
     mat4.ortho(projection, 0, GL.drawingBufferWidth, 0, GL.drawingBufferHeight, 0, 1.0);
     GL.uniformMatrix4fv(GL.getUniformLocation(program, 'transform'), false, projection);
@@ -201,7 +202,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
   }
 </style>
