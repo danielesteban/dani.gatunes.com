@@ -4,10 +4,12 @@
   import { onMount, onDestroy } from 'svelte';
 
   let animation;
+  let attributes;
   let buffers;
   let canvas;
   let GL;
   let program;
+  let uniforms;
 
   const noise = new Noise(Math.random());
   const pixelWidth = 20;
@@ -61,10 +63,7 @@
       for (let v = 0; v < 4; v += 1) lightmap[(i * 4) + v] = color;
     });
     GL.bufferSubData(GL.ARRAY_BUFFER, 0, lightmap);
-    if (pointer.needsUpdate) {
-      GL.uniform2fv(pointer.uniform, pointer);
-      pointer.needsUpdate = false;
-    }
+    GL.uniform2fv(uniforms.pointer, pointer);
     GL.drawElements(GL.TRIANGLES, count, GL.UNSIGNED_SHORT, 0);
     animation = requestAnimationFrame(animate);
   };
@@ -72,7 +71,6 @@
   const onMouseMove = ({ clientX: x, clientY: y }) => {
     pointer[0] = x * scale;
     pointer[1] = canvas.height - (y * scale);
-    pointer.needsUpdate = true;
   };
 
   const onResize = () => {
@@ -91,7 +89,7 @@
     canvas.height = rect.height * scale;
     GL.viewport(0, 0, GL.drawingBufferWidth, GL.drawingBufferHeight);
     mat4.ortho(projection, 0, GL.drawingBufferWidth, 0, GL.drawingBufferHeight, 0, 1.0);
-    GL.uniformMatrix4fv(GL.getUniformLocation(program, 'transform'), false, projection);
+    GL.uniformMatrix4fv(uniforms.transform, false, projection);
 
     const w = pixelWidth * 0.5;
     const h = pixelHeight * 0.5;
@@ -130,25 +128,22 @@
     buffers.count = index.length;
     buffers.grid = grid;
 
-    const positionLocation = GL.getAttribLocation(program, 'position');
     GL.bindBuffer(GL.ARRAY_BUFFER, position);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(vertices), GL.STATIC_DRAW);
-    GL.vertexAttribPointer(positionLocation, 2, GL.FLOAT, 0, 0, 0);
-    GL.enableVertexAttribArray(positionLocation);
-    const pixelLocation = GL.getAttribLocation(program, 'pixel');
+    GL.vertexAttribPointer(attributes.position, 2, GL.FLOAT, 0, 0, 0);
+    GL.enableVertexAttribArray(attributes.position);
     GL.bindBuffer(GL.ARRAY_BUFFER, pixel);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(pixels), GL.STATIC_DRAW);
-    GL.vertexAttribPointer(pixelLocation, 2, GL.FLOAT, 0, 0, 0);
-    GL.enableVertexAttribArray(pixelLocation);
+    GL.vertexAttribPointer(attributes.pixel, 2, GL.FLOAT, 0, 0, 0);
+    GL.enableVertexAttribArray(attributes.pixel);
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, indices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(index), GL.STATIC_DRAW);
 
     buffers.lightmap = new Float32Array(grid.length * 4);
-    const lightLocation = GL.getAttribLocation(program, 'light');
     GL.bindBuffer(GL.ARRAY_BUFFER, light);
     GL.bufferData(GL.ARRAY_BUFFER, buffers.lightmap, GL.DYNAMIC_DRAW);
-    GL.vertexAttribPointer(lightLocation, 1, GL.FLOAT, 0, 0, 0);
-    GL.enableVertexAttribArray(lightLocation);
+    GL.vertexAttribPointer(attributes.light, 1, GL.FLOAT, 0, 0, 0);
+    GL.enableVertexAttribArray(attributes.light);
   };
 
   onMount(() => {
@@ -167,6 +162,25 @@
       return;
     }
 
+    const vertex = GL.createShader(GL.VERTEX_SHADER);
+    GL.shaderSource(vertex, vertexShader);
+    GL.compileShader(vertex);
+    const fragment = GL.createShader(GL.FRAGMENT_SHADER);
+    GL.shaderSource(fragment, fragmentShader);
+    GL.compileShader(fragment);
+
+    program = GL.createProgram();
+    GL.attachShader(program, vertex);
+    GL.attachShader(program, fragment);
+    GL.linkProgram(program);
+    GL.useProgram(program);
+
+    attributes = {
+      light: GL.getAttribLocation(program, 'light'),
+      pixel: GL.getAttribLocation(program, 'pixel'),
+      position: GL.getAttribLocation(program, 'position'),
+    };
+
     buffers = {
       indices: GL.createBuffer(),
       light: GL.createBuffer(),
@@ -174,19 +188,12 @@
       position: GL.createBuffer(),
     };
 
-    program = GL.createProgram();
-    const vertex = GL.createShader(GL.VERTEX_SHADER);
-    GL.shaderSource(vertex, vertexShader);
-    GL.compileShader(vertex);
-    const fragment = GL.createShader(GL.FRAGMENT_SHADER);
-    GL.shaderSource(fragment, fragmentShader);
-    GL.compileShader(fragment);
-    GL.attachShader(program, vertex);
-    GL.attachShader(program, fragment);
-    GL.linkProgram(program);
-    GL.useProgram(program);
+    uniforms = {
+      pointer: GL.getUniformLocation(program, 'pointerPosition'),
+      transform: GL.getUniformLocation(program, 'transform'),
+    };
+
     GL.uniform1f(GL.getUniformLocation(program, 'pointerHalo'), 300 * scale);
-    pointer.uniform = GL.getUniformLocation(program, 'pointerPosition');
 
     onResize();
     animate(0);
