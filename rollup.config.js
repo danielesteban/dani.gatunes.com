@@ -8,7 +8,6 @@ import copy from 'rollup-plugin-copy';
 import css from 'rollup-plugin-css-only';
 import livereload from 'rollup-plugin-livereload';
 import serve from 'rollup-plugin-serve';
-import { string } from 'rollup-plugin-string';
 import svelte from 'rollup-plugin-svelte';
 import { terser } from 'rollup-plugin-terser';
 
@@ -54,14 +53,14 @@ export default {
     commonjs(),
     copy({
       targets: [
+        { src: 'fonts/*.ttf', dest: 'dist/fonts' },
         { src: 'screenshot.png', dest: 'dist' },
         { src: 'src/index.html', dest: 'dist' },
-        { src: 'fonts/*.ttf', dest: 'dist/fonts' },
       ],
     }),
-    images({ src: path.join(__dirname, 'projects'), dest: path.join(__dirname, 'dist', 'projects') }),
-    string({
-      include: ["**/*.frag","**/*.vert"],
+    images({
+      src: path.join(__dirname, 'projects'),
+      dest: path.join(__dirname, 'dist', 'projects'),
     }),
     ...(production ? (
       [terser(), cname('dani.gatunes.com')]

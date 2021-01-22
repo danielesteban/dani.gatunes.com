@@ -2,19 +2,55 @@
   import { vec2, mat4 } from 'gl-matrix';
   import { Noise } from 'noisejs';
   import { onMount, onDestroy } from 'svelte';
-  import vertexShader from '../shaders/background.vert';
-  import fragmentShader from '../shaders/background.frag';
 
   let animation;
   let buffers;
   let canvas;
   let GL;
-  let shader;
+  let program;
 
   const noise = new Noise(Math.random());
   const pointer = vec2.create();
   const projection = mat4.create();
+  const quadWidth = 20;
+  const quadHeight = 30;
   const scale = 0.6;
+  
+  const vertexShader = `
+    precision mediump float;
+
+    attribute vec2 position;
+    attribute vec2 quad;
+    attribute float light;
+    varying vec4 fragColor;
+    uniform mat4 transform;
+    uniform float pointerHalo;
+    uniform vec2 pointerPosition;
+
+    void main(void) {
+      float vertexLight = light;
+      float distance = sqrt(
+        pow(pointerPosition.x - quad.x, 2.0)
+        + pow(pointerPosition.y - quad.y, 2.0)
+      );
+      if (distance <= pointerHalo) {
+        float halo = ((pointerHalo - distance) / pointerHalo) * 0.25;
+        vertexLight = clamp(vertexLight + (halo - (halo * 0.5)), 0.0, 1.0);
+      }
+      gl_Position = transform * vec4(position, 0.0, 1.0);
+      fragColor = vec4(vec3(vertexLight), 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    precision mediump float;
+
+    varying vec4 fragColor;
+
+    void main(void) {
+      gl_FragColor = fragColor;
+    }
+  `;
 
   const animate = (time) => {
     const { count, grid, lightmap } = buffers;
@@ -33,7 +69,13 @@
     animation = requestAnimationFrame(animate);
   };
 
-  const reset = () => {
+  const onMouseMove = ({ clientX: x, clientY: y }) => {
+    pointer[0] = x * scale;
+    pointer[1] = canvas.height - (y * scale);
+    pointer.needsUpdate = true;
+  };
+
+  const onResize = () => {
     const {
       indices,
       light,
@@ -45,12 +87,10 @@
     canvas.height = window.innerHeight * scale;
     GL.viewport(0, 0, GL.drawingBufferWidth, GL.drawingBufferHeight);
     mat4.ortho(projection, 0, GL.drawingBufferWidth, 0, GL.drawingBufferHeight, 0, 1.0);
-    GL.uniformMatrix4fv(GL.getUniformLocation(shader, 'transform'), false, projection);
+    GL.uniformMatrix4fv(GL.getUniformLocation(program, 'transform'), false, projection);
 
-    const QUAD_WIDTH = 20;
-    const QUAD_HEIGHT = 30;
-    const w = QUAD_WIDTH * 0.5;
-    const h = QUAD_HEIGHT * 0.5;
+    const w = quadWidth * 0.5;
+    const h = quadHeight * 0.5;
     const quadVertices = [
       [-w, -h],
       [w, -h],
@@ -66,14 +106,14 @@
     const index = [];
     const grid = [];
     for (
-      let y = (canvas.height % QUAD_HEIGHT) * 0.5, offset = 0;
-      y < canvas.height + QUAD_HEIGHT * 0.5;
-      y += QUAD_HEIGHT
+      let y = (canvas.height % quadHeight) * 0.5, offset = 0;
+      y < canvas.height + quadHeight * 0.5;
+      y += quadHeight
     ) {
       for (
-        let x = (canvas.width % QUAD_WIDTH) * 0.5;
-        x < canvas.width + QUAD_WIDTH * 0.5;
-        x += QUAD_WIDTH, offset += 4
+        let x = (canvas.width % quadWidth) * 0.5;
+        x < canvas.width + quadWidth * 0.5;
+        x += quadWidth, offset += 4
       ) {
         quadVertices.forEach((v) => {
           vertices.push(x + v[0], canvas.height - y + v[1]);
@@ -86,12 +126,12 @@
     buffers.count = index.length;
     buffers.grid = grid;
 
-    const positionLocation = GL.getAttribLocation(shader, 'position');
+    const positionLocation = GL.getAttribLocation(program, 'position');
     GL.bindBuffer(GL.ARRAY_BUFFER, position);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(vertices), GL.STATIC_DRAW);
     GL.vertexAttribPointer(positionLocation, 2, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(positionLocation);
-    const quadLocation = GL.getAttribLocation(shader, 'quad');
+    const quadLocation = GL.getAttribLocation(program, 'quad');
     GL.bindBuffer(GL.ARRAY_BUFFER, quad);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(quads), GL.STATIC_DRAW);
     GL.vertexAttribPointer(quadLocation, 2, GL.FLOAT, 0, 0, 0);
@@ -100,17 +140,11 @@
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(index), GL.STATIC_DRAW);
 
     buffers.lightmap = new Float32Array(grid.length * 4);
-    const lightLocation = GL.getAttribLocation(shader, 'light');
+    const lightLocation = GL.getAttribLocation(program, 'light');
     GL.bindBuffer(GL.ARRAY_BUFFER, light);
     GL.bufferData(GL.ARRAY_BUFFER, buffers.lightmap, GL.STREAM_DRAW);
     GL.vertexAttribPointer(lightLocation, 1, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(lightLocation);
-  };
-
-  const onMouseMove = ({ clientX: x, clientY: y }) => {
-    pointer[0] = x * scale;
-    pointer[1] = canvas.height - (y * scale);
-    pointer.needsUpdate = true;
   };
 
   onMount(() => {
@@ -125,21 +159,21 @@
       quad: GL.createBuffer(),
     };
 
-    shader = GL.createProgram();
+    program = GL.createProgram();
     const vertex = GL.createShader(GL.VERTEX_SHADER);
     GL.shaderSource(vertex, vertexShader);
     GL.compileShader(vertex);
     const fragment = GL.createShader(GL.FRAGMENT_SHADER);
     GL.shaderSource(fragment, fragmentShader);
     GL.compileShader(fragment);
-    GL.attachShader(shader, vertex);
-    GL.attachShader(shader, fragment);
-    GL.linkProgram(shader);
-    GL.useProgram(shader);
-    GL.uniform1f(GL.getUniformLocation(shader, 'pointerHalo'), 300 * scale);
-    pointer.uniform = GL.getUniformLocation(shader, 'pointerPosition');
+    GL.attachShader(program, vertex);
+    GL.attachShader(program, fragment);
+    GL.linkProgram(program);
+    GL.useProgram(program);
+    GL.uniform1f(GL.getUniformLocation(program, 'pointerHalo'), 300 * scale);
+    pointer.uniform = GL.getUniformLocation(program, 'pointerPosition');
 
-    reset();
+    onResize();
     animate(0);
   });
 
@@ -154,7 +188,10 @@
   });
 </script>
 
-<svelte:window on:mousemove={onMouseMove} on:resize={reset} />
+<svelte:window
+  on:mousemove={onMouseMove}
+  on:resize={onResize}
+/>
 <canvas
   bind:this={canvas}
 />
