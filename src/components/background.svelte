@@ -143,7 +143,7 @@
     buffers.lightmap = new Float32Array(grid.length * 4);
     const lightLocation = GL.getAttribLocation(program, 'light');
     GL.bindBuffer(GL.ARRAY_BUFFER, light);
-    GL.bufferData(GL.ARRAY_BUFFER, buffers.lightmap, GL.STREAM_DRAW);
+    GL.bufferData(GL.ARRAY_BUFFER, buffers.lightmap, GL.DYNAMIC_DRAW);
     GL.vertexAttribPointer(lightLocation, 1, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(lightLocation);
   };
