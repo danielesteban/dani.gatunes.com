@@ -31,10 +31,7 @@
 
     void main(void) {
       float vertexLight = light;
-      float distance = sqrt(
-        pow(pointerPosition.x - pixel.x, 2.0)
-        + pow(pointerPosition.y - pixel.y, 2.0)
-      );
+      float distance = length(pointerPosition - pixel);
       if (distance <= pointerHalo) {
         float halo = ((pointerHalo - distance) / pointerHalo) * 0.25;
         vertexLight = clamp(vertexLight + (halo - (halo * 0.5)), 0.0, 1.0);
