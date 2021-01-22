@@ -74,13 +74,6 @@
     if (!GL) {
       return;
     }
-    const {
-      indices,
-      light,
-      pixel,
-      position,
-    } = buffers;
-
     const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width * scale;
     canvas.height = rect.height * scale;
@@ -125,21 +118,21 @@
     buffers.count = index.length;
     buffers.grid = grid;
 
-    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, indices);
+    GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, buffers.indices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(index), GL.STATIC_DRAW);
 
-    GL.bindBuffer(GL.ARRAY_BUFFER, pixel);
+    GL.bindBuffer(GL.ARRAY_BUFFER, buffers.pixel);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(pixels), GL.STATIC_DRAW);
     GL.vertexAttribPointer(attributes.pixel, 2, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(attributes.pixel);
   
-    GL.bindBuffer(GL.ARRAY_BUFFER, position);
+    GL.bindBuffer(GL.ARRAY_BUFFER, buffers.position);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(vertices), GL.STATIC_DRAW);
     GL.vertexAttribPointer(attributes.position, 2, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(attributes.position);
 
     buffers.lightmap = new Float32Array(grid.length * 4);
-    GL.bindBuffer(GL.ARRAY_BUFFER, light);
+    GL.bindBuffer(GL.ARRAY_BUFFER, buffers.light);
     GL.bufferData(GL.ARRAY_BUFFER, buffers.lightmap, GL.DYNAMIC_DRAW);
     GL.vertexAttribPointer(attributes.light, 1, GL.FLOAT, 0, 0, 0);
     GL.enableVertexAttribArray(attributes.light);
