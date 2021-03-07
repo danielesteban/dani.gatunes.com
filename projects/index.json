@@ -35,11 +35,11 @@
     "url": "voxelizer-ply-boilerplate.glitch.me"
   },
   {
-    "id": "blockseditor",
-    "title": "BlocksEditor",
-    "tags": ["WebXR", "ThreeJS", "Voxels"],
-    "info": "A general purpose voxels editor.",
-    "url": "blocks-editor.gatunes.com"
+    "id": "cells",
+    "title": "Cells",
+    "tags": ["2D", "Physics"],
+    "info": "Experimenting with cellular automatas",
+    "url": "cells.gatunes.com"
   },
   {
     "id": "beats",
@@ -61,6 +61,13 @@
     "tags": ["WebGL", "ThreeJS", "GLSL"],
     "info": "WebGL portals experiment.",
     "url": "sambaportals.glitch.me"
+  },
+  {
+    "id": "blockseditor",
+    "title": "BlocksEditor",
+    "tags": ["WebXR", "ThreeJS", "Voxels"],
+    "info": "A general purpose voxels editor.",
+    "url": "blocks-editor.gatunes.com"
   },
   {
     "id": "blocks",
