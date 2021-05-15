@@ -1,5 +1,12 @@
 [
   {
+    "id": "dudes",
+    "title": "Dudes!",
+    "tags": ["WebXR", "ThreeJS", "WASM"],
+    "info": "A game built with my new (soon to be released) opensource voxel engine with a backend implemented in C, 3D pathfinding and physics.",
+    "url": "dudes.gatunes.com"
+  },
+  {
     "id": "mementos",
     "title": "City of Mementos",
     "tags": ["WebXR", "ThreeJS", "Voxels"],
