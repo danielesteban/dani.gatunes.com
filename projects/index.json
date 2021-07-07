@@ -1,9 +1,16 @@
 [
   {
+    "id": "slimery",
+    "title": "SLIMERY.art",
+    "tags": ["Raymarching", "ThreeJS", "WASM"],
+    "info": "A SDF 3D editor with voxel and polygon exporters.",
+    "url": "slimery.art"
+  },
+  {
     "id": "dudes",
     "title": "Dudes!",
     "tags": ["WebXR", "ThreeJS", "WASM"],
-    "info": "A game built with my new (soon to be released) opensource voxel engine with a backend implemented in C, 3D pathfinding and physics.",
+    "info": "An opensource voxel engine with a backend implemented in C, 3D pathfinding and physics.",
     "url": "dudes.gatunes.com"
   },
   {
