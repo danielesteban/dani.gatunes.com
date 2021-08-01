@@ -7,6 +7,13 @@
     "url": "slimery.art"
   },
   {
+    "id": "softxels",
+    "title": "softxels",
+    "tags": ["MarchingCubes", "ThreeJS", "WASM"],
+    "info": "A multithreaded marching cubes engine.",
+    "url": "softxels.gatunes.com"
+  },
+  {
     "id": "dudes",
     "title": "Dudes!",
     "tags": ["WebXR", "ThreeJS", "WASM"],
