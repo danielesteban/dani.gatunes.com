@@ -8,7 +8,7 @@
   },
   {
     "id": "softxels",
-    "title": "softxels",
+    "title": "Softxels",
     "tags": ["MarchingCubes", "ThreeJS", "WASM"],
     "info": "A multithreaded marching cubes engine.",
     "url": "softxels.gatunes.com"
