@@ -63,6 +63,20 @@
     "url": "cells.gatunes.com"
   },
   {
+    "id": "blockseditor",
+    "title": "BlocksEditor",
+    "tags": ["WebXR", "ThreeJS", "Voxels"],
+    "info": "A general purpose voxels editor.",
+    "url": "blocks-editor.gatunes.com"
+  },
+  {
+    "id": "blocks",
+    "title": "Blocks",
+    "tags": ["WebXR", "ThreeJS", "Multiplayer"],
+    "info": "A multiplayer voxels engine.",
+    "url": "blocks.gatunes.com"
+  },
+  {
     "id": "beats",
     "title": "Beats",
     "tags": ["WebXR", "ThreeJS", "WebAudio"],
@@ -82,20 +96,6 @@
     "tags": ["WebGL", "ThreeJS", "GLSL"],
     "info": "WebGL portals experiment.",
     "url": "sambaportals.glitch.me"
-  },
-  {
-    "id": "blockseditor",
-    "title": "BlocksEditor",
-    "tags": ["WebXR", "ThreeJS", "Voxels"],
-    "info": "A general purpose voxels editor.",
-    "url": "blocks-editor.gatunes.com"
-  },
-  {
-    "id": "blocks",
-    "title": "Blocks",
-    "tags": ["WebXR", "ThreeJS", "Multiplayer"],
-    "info": "A multiplayer voxels engine.",
-    "url": "blocks.gatunes.com"
   },
   {
     "id": "racer",
