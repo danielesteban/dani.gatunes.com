@@ -7,13 +7,6 @@
     "url": "github.com/danielesteban/three-raymarcher"
   },
   {
-    "id": "slimery",
-    "title": "SLIMERY.art",
-    "tags": ["Raymarching", "ThreeJS", "WASM"],
-    "info": "A SDF 3D editor with voxel and polygon exporters.",
-    "url": "slimery.art"
-  },
-  {
     "id": "softxels",
     "title": "Softxels",
     "tags": ["MarchingCubes", "ThreeJS", "WASM"],
@@ -35,32 +28,11 @@
     "url": "mementos.city"
   },
   {
-    "id": "realms",
-    "title": "Realms",
-    "tags": ["WebXR", "ThreeJS", "Voxels"],
-    "info": "A voxel editor with a recursive twist. Create infinite worlds and light them with music in VR.",
-    "url": "realms.gatunes.com"
-  },
-  {
-    "id": "trolltower",
-    "title": "TrollTower",
-    "tags": ["WebXR", "ThreeJS", "Physics"],
-    "info": "A multiplayer climbing game.",
-    "url": "trolltower.app"
-  },
-  {
     "id": "spacetrain",
     "title": "SpaceTrain",
     "tags": ["WebXR", "ThreeJS", "Physics"],
     "info": "A combined set of example experiences for the blocks-editor connected by a train. You can enjoy some art, go to a show, play some sports, make some art with physics and more.",
     "url": "train.gatunes.com"
-  },
-  {
-    "id": "voxelizer",
-    "title": "PointcloudPhysics",
-    "tags": ["WebGL", "ThreeJS", "Physics"],
-    "info": "An example use case for the blocks-editor voxelizer and the \"export physics\" feature. Realtime physics simulation of a pointcloud mesh.",
-    "url": "voxelizer-ply-boilerplate.glitch.me"
   },
   {
     "id": "cells",
@@ -70,18 +42,18 @@
     "url": "cells.gatunes.com"
   },
   {
-    "id": "blockseditor",
-    "title": "BlocksEditor",
-    "tags": ["WebXR", "ThreeJS", "Voxels"],
-    "info": "A general purpose voxels editor.",
-    "url": "blocks-editor.gatunes.com"
+    "id": "trolltower",
+    "title": "TrollTower",
+    "tags": ["WebXR", "ThreeJS", "Physics"],
+    "info": "A multiplayer climbing game.",
+    "url": "trolltower.app"
   },
   {
-    "id": "blocks",
-    "title": "Blocks",
-    "tags": ["WebXR", "ThreeJS", "Multiplayer"],
-    "info": "A multiplayer voxels engine.",
-    "url": "blocks.gatunes.com"
+    "id": "voxelizer",
+    "title": "PointcloudPhysics",
+    "tags": ["WebGL", "ThreeJS", "Physics"],
+    "info": "An example use case for the blocks-editor voxelizer and the \"export physics\" feature. Realtime physics simulation of a pointcloud mesh.",
+    "url": "voxelizer-ply-boilerplate.glitch.me"
   },
   {
     "id": "beats",
@@ -91,18 +63,25 @@
     "url": "beats.gatunes.com"
   },
   {
+    "id": "realms",
+    "title": "Realms",
+    "tags": ["WebXR", "ThreeJS", "Voxels"],
+    "info": "A voxel editor with a recursive twist. Create infinite worlds and light them with music in VR.",
+    "url": "realms.gatunes.com"
+  },
+  {
+    "id": "portals",
+    "title": "Portals",
+    "tags": ["WebGL", "ThreeJS"],
+    "info": "Portals with ThreeJS.",
+    "url": "https://github.com/danielesteban/portals"
+  },
+  {
     "id": "vaporcity",
     "title": "VaporCity",
     "tags": ["WebGL", "ThreeJS", "GLSL"],
     "info": "4 draw-call city.",
     "url": "vaporcity.glitch.me"
-  },
-  {
-    "id": "sambaportals",
-    "title": "SambaPortals",
-    "tags": ["WebGL", "ThreeJS", "GLSL"],
-    "info": "WebGL portals experiment.",
-    "url": "sambaportals.glitch.me"
   },
   {
     "id": "racer",
