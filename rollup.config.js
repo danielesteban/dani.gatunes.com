@@ -4,8 +4,8 @@ import sharp from 'sharp';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
-import css from 'rollup-plugin-css-only';
 import livereload from 'rollup-plugin-livereload';
+import postcss from 'rollup-plugin-postcss';
 import serve from 'rollup-plugin-serve';
 import svelte from 'rollup-plugin-svelte';
 import { terser } from 'rollup-plugin-terser';
@@ -43,12 +43,15 @@ export default {
     svelte({
       dev: !production,
     }),
-    css({ output: 'app.css' }),
+    json(),
     resolve({
       browser: true,
       dedupe: ['svelte'],
     }),
-    json(),
+    postcss({
+      extract: path.join(__dirname, 'dist', 'app.css'),
+      minimize: !production,
+    }),
     copy({
       targets: [
         { src: 'screenshot.png', dest: 'dist' },
