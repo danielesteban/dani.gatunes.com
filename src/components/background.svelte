@@ -1,6 +1,6 @@
 <script>
+  import FastNoise from 'fastnoise-lite';
   import { vec2, mat4 } from 'gl-matrix';
-  import { Noise } from 'noisejs';
   import { onMount, onDestroy } from 'svelte';
 
   let animation;
@@ -11,7 +11,7 @@
   let program;
   let uniforms;
 
-  const noise = new Noise(Math.random());
+  const noise = new FastNoise(Math.random());
   const pixelWidth = 20;
   const pixelHeight = 30;
   const pointer = vec2.create();
@@ -54,9 +54,7 @@
   const animate = (time) => {
     const { count, grid, lightmap } = buffers;
     grid.forEach(([x, y], i) => {
-      const light = (
-        (1 + noise.simplex3(x / 100, y / 100, time * 0.0003)) * 1.1 * 128
-      ) / 1000;
+      const light = 0.15 + noise.GetNoise(x, y, time * 0.03) * 0.05;
       lightmap.set([light, light, light, light], i * 4);
     });
     GL.bufferSubData(GL.ARRAY_BUFFER, 0, lightmap);

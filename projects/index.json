@@ -1,5 +1,12 @@
 [
   {
+    "id": "raymarcher",
+    "title": "three-raymarcher",
+    "tags": ["Raymarching", "ThreeJS"],
+    "info": "Raymarching abstraction for creating simple SDF animations with threejs",
+    "url": "github.com/danielesteban/three-raymarcher"
+  },
+  {
     "id": "slimery",
     "title": "SLIMERY.art",
     "tags": ["Raymarching", "ThreeJS", "WASM"],

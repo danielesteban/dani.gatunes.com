@@ -3,7 +3,6 @@ import path from 'path';
 import sharp from 'sharp';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import copy from 'rollup-plugin-copy';
 import css from 'rollup-plugin-css-only';
 import livereload from 'rollup-plugin-livereload';
@@ -50,7 +49,6 @@ export default {
       dedupe: ['svelte'],
     }),
     json(),
-    commonjs(),
     copy({
       targets: [
         { src: 'screenshot.png', dest: 'dist' },

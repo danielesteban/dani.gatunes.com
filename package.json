@@ -10,21 +10,20 @@
     "start": "npm run build -- -w"
   },
   "dependencies": {
-    "gl-matrix": "^3.3.0",
-    "noisejs": "^2.1.0",
-    "svelte": "^3.41.0"
+    "fastnoise-lite": "^0.0.1",
+    "gl-matrix": "^3.4.3",
+    "svelte": "^3.48.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "rollup": "^2.55.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "rollup": "^2.75.6",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
-    "sharp": "^0.28.3"
+    "sharp": "^0.30.6"
   }
 }
