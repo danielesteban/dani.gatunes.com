@@ -35,18 +35,18 @@
     "url": "train.gatunes.com"
   },
   {
-    "id": "cells",
-    "title": "Cells",
-    "tags": ["2D", "Physics"],
-    "info": "Experimenting with cellular automatas",
-    "url": "cells.gatunes.com"
-  },
-  {
     "id": "trolltower",
     "title": "TrollTower",
     "tags": ["WebXR", "ThreeJS", "Physics"],
     "info": "A multiplayer climbing game.",
     "url": "trolltower.app"
+  },
+  {
+    "id": "cells",
+    "title": "Cells",
+    "tags": ["2D", "Physics"],
+    "info": "Experimenting with cellular automatas",
+    "url": "cells.gatunes.com"
   },
   {
     "id": "voxelizer",
