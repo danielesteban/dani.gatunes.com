@@ -4,14 +4,14 @@
     "title": "sandbox",
     "tags": ["Voxels", "Simulation", "WebGPU"],
     "info": "Voxel simulation with compute shaders",
-    "url": "https://sandbox.gatunes.com"
+    "url": "sandbox.gatunes.com"
   },
   {
     "id": "gpuworld",
     "title": "gpuworld",
     "tags": ["Voxels", "WebGPU"],
     "info": "Infinite voxel world with fast flood fill lighting",
-    "url": "https://gpuworld.gatunes.com"
+    "url": "gpuworld.gatunes.com"
   },
   {
     "id": "raymarcher",
@@ -95,7 +95,7 @@
     "title": "Portals",
     "tags": ["WebGL", "ThreeJS"],
     "info": "Portals with ThreeJS.",
-    "url": "https://github.com/danielesteban/portals"
+    "url": "github.com/danielesteban/portals"
   },
   {
     "id": "vaporcity",
