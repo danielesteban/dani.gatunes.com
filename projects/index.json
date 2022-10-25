@@ -1,5 +1,19 @@
 [
   {
+    "id": "sandbox",
+    "title": "sandbox",
+    "tags": ["Voxels", "Simulation", "WebGPU"],
+    "info": "Voxel simulation with compute shaders",
+    "url": "https://sandbox.gatunes.com"
+  },
+  {
+    "id": "gpuworld",
+    "title": "gpuworld",
+    "tags": ["Voxels", "WebGPU"],
+    "info": "Infinite voxel world with fast flood fill lighting",
+    "url": "https://gpuworld.gatunes.com"
+  },
+  {
     "id": "raymarcher",
     "title": "three-raymarcher",
     "tags": ["Raymarching", "ThreeJS"],
@@ -14,11 +28,11 @@
     "url": "softxels.gatunes.com"
   },
   {
-    "id": "dudes",
-    "title": "Dudes!",
-    "tags": ["WebXR", "ThreeJS", "WASM"],
-    "info": "An opensource voxel engine with a backend implemented in C, 3D pathfinding and physics.",
-    "url": "dudes.gatunes.com"
+    "id": "cubitos",
+    "title": "cubitos",
+    "tags": ["Voxels", "ThreeJS", "WASM"],
+    "info": "Voxel renderer and pathfinder for threejs",
+    "url": "cubitos.gatunes.com"
   },
   {
     "id": "mementos",
@@ -40,6 +54,13 @@
     "tags": ["WebXR", "ThreeJS", "Physics"],
     "info": "A multiplayer climbing game.",
     "url": "trolltower.app"
+  },
+  {
+    "id": "dudes",
+    "title": "Dudes!",
+    "tags": ["WebXR", "ThreeJS", "WASM"],
+    "info": "An opensource voxel engine with a backend implemented in C, 3D pathfinding and physics.",
+    "url": "dudes.gatunes.com"
   },
   {
     "id": "cells",
