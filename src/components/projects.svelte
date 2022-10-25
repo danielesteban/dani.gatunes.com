@@ -24,6 +24,7 @@
             <div class="url">
               https://{project.url}
             </div>
+            <!-- svelte-ignore a11y-missing-content -->
             <a
               href={`https://${project.url}`}
               rel="noopener noreferrer"
