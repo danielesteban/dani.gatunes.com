@@ -1,17 +1,17 @@
 [
   {
-    "id": "sandbox",
-    "title": "sandbox",
+    "id": "gpucloth",
+    "title": "gpucloth",
     "tags": ["Voxels", "Simulation", "WebGPU"],
-    "info": "Voxel simulation with compute shaders",
-    "url": "sandbox.gatunes.com"
+    "info": "Cloth simulation with compute shaders",
+    "url": "gpucloth.gatunes.com"
   },
   {
-    "id": "gpuworld",
-    "title": "gpuworld",
-    "tags": ["Voxels", "WebGPU"],
-    "info": "Infinite voxel world with fast flood fill lighting",
-    "url": "gpuworld.gatunes.com"
+    "id": "sculpty",
+    "title": "sculpty",
+    "tags": ["MarchingCubes", "Voxels", "ThreeJS", "WASM"],
+    "info": "Sculpt with voxels that render as marching cubes",
+    "url": "sculpty.gatunes.com"
   },
   {
     "id": "raymarcher",

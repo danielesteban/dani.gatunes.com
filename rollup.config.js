@@ -1,22 +1,20 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import sharp from 'sharp';
-import json from '@rollup/plugin-json';
-import resolve from '@rollup/plugin-node-resolve';
 import copy from 'rollup-plugin-copy';
+import json from '@rollup/plugin-json';
 import livereload from 'rollup-plugin-livereload';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
 import serve from 'rollup-plugin-serve';
 import svelte from 'rollup-plugin-svelte';
-import { terser } from 'rollup-plugin-terser';
+import sveltePreprocess from 'svelte-preprocess';
+import terser from '@rollup/plugin-terser';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const production = !process.env.ROLLUP_WATCH;
-
-const cname = (domain) => ({
-  writeBundle() {
-    fs.writeFileSync(path.join(__dirname, 'dist', 'CNAME'), domain);
-  },
-});
+const outputPath = path.resolve(__dirname, 'dist');
 
 const images = ({ src, dest }) => ({
   writeBundle() {
@@ -34,24 +32,15 @@ const images = ({ src, dest }) => ({
 export default {
   input: path.join(__dirname, 'src', 'main.js'),
   output: {
-    sourcemap: true,
+    dir: outputPath,
     format: 'iife',
-    name: 'app',
-    file: path.join(__dirname, 'dist', 'app.js'),
+    sourcemap: !production,
   },
   plugins: [
-    svelte({
-      dev: !production,
-    }),
     json(),
-    resolve({
-      browser: true,
-      dedupe: ['svelte'],
-    }),
-    postcss({
-      extract: path.join(__dirname, 'dist', 'app.css'),
-      minimize: !production,
-    }),
+    nodeResolve({ browser: true }),
+    svelte({ preprocess: sveltePreprocess({ sourceMap: !production }) }),
+    postcss({ extract: true, minimize: production }),
     copy({
       targets: [
         { src: 'screenshot.png', dest: 'dist' },
@@ -61,12 +50,15 @@ export default {
     }),
     images({
       src: path.join(__dirname, 'projects'),
-      dest: path.join(__dirname, 'dist', 'projects'),
+      dest: path.join(outputPath, 'projects'),
     }),
     ...(production ? (
-      [terser(), cname('dani.gatunes.com')]
+      [terser()]
     ) : (
-      [serve({ contentBase: path.join(__dirname, 'dist'), port: 8080 }), livereload(path.join(__dirname, 'dist'))])
+      [
+        serve({ contentBase: outputPath, port: 8080 }),
+        livereload(outputPath)
+      ])
     ),
   ],
 };
