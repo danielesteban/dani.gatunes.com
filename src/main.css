@@ -22,7 +22,6 @@ body {
   font-weight: 400;
   text-shadow: rgba(0, 0, 0, .4) 1px 2px;
   overscroll-behavior: none;
-  touch-action: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: none;
