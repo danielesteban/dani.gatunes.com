@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Projects from '../../projects/index.json';
 </script>
 
@@ -24,12 +24,12 @@
             <div class="url">
               https://{project.url}
             </div>
-            <!-- svelte-ignore a11y-missing-content -->
+            <!-- svelte-ignore a11y_consider_explicit_label -->
             <a
               href={`https://${project.url}`}
               rel="noopener noreferrer"
               target="_blank"
-            />
+            ></a>
           </div>
         </div>
       </div>

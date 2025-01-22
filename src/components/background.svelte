@@ -1,17 +1,35 @@
-<script>
+<script lang="ts">
+  // @ts-ignore
   import FastNoise from 'fastnoise-lite';
   import { vec2, mat4 } from 'gl-matrix';
-  import { onMount, onDestroy } from 'svelte';
+  import { type MouseEventHandler } from 'svelte/elements';
 
-  let animation;
-  let attributes;
-  let buffers;
-  let canvas;
-  let GL;
-  let program;
-  let uniforms;
+  let animation: number;
+  let attributes: {
+    light: GLint,
+    pixel: GLint,
+    position: GLint,
+  };
+  let buffers: {
+    indices: WebGLBuffer,
+    light: WebGLBuffer,
+    pixel: WebGLBuffer,
+    position: WebGLBuffer,
+  };
+  let canvas: HTMLCanvasElement;
+  let data: {
+    count: GLint,
+    grid: vec2[],
+    lightmap: Float32Array,
+  };
+  let GL: WebGLRenderingContext;
+  let program: WebGLProgram;
+  let uniforms: {
+    pointer: WebGLUniformLocation,
+    transform: WebGLUniformLocation,
+  };
 
-  const noise = new FastNoise(Math.random());
+  const noise: { GetNoise: (x: number, y: number, z: number) => number } = new FastNoise(Math.random());
   const pixelWidth = 20;
   const pixelHeight = 30;
   const pointer = vec2.create();
@@ -51,8 +69,8 @@
     }
   `;
 
-  const animate = (time) => {
-    const { count, grid, lightmap } = buffers;
+  const animate = (time: number) => {
+    const { count, grid, lightmap } = data;
     grid.forEach(([x, y], i) => {
       const light = 0.15 + noise.GetNoise(x, y, time * 0.03) * 0.05;
       lightmap.set([light, light, light, light], i * 4);
@@ -63,7 +81,7 @@
     animation = requestAnimationFrame(animate);
   };
 
-  const onMouseMove = ({ clientX: x, clientY: y }) => {
+  const onMouseMove: MouseEventHandler<Window> = ({ clientX: x, clientY: y }) => {
     pointer[0] = x * scale;
     pointer[1] = canvas.height - (y * scale);
   };
@@ -91,10 +109,10 @@
       0, 1, 2,
       2, 3, 0,
     ];
-    const vertices = [];
-    const pixels = [];
-    const index = [];
-    const grid = [];
+    const vertices: number[] = [];
+    const pixels: number[] = [];
+    const index: number[] = [];
+    const grid: vec2[] = [];
     for (
       let y = (canvas.height % pixelHeight) * 0.5, offset = 0;
       y < canvas.height + pixelHeight * 0.5;
@@ -113,30 +131,32 @@
         grid.push(vec2.fromValues(x, y));
       }
     }
-    buffers.count = index.length;
-    buffers.grid = grid;
+    data = {
+      count: index.length,
+      grid,
+      lightmap: new Float32Array(grid.length * 4),
+    };
 
     GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, buffers.indices);
     GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(index), GL.STATIC_DRAW);
 
     GL.bindBuffer(GL.ARRAY_BUFFER, buffers.pixel);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(pixels), GL.STATIC_DRAW);
-    GL.vertexAttribPointer(attributes.pixel, 2, GL.FLOAT, 0, 0, 0);
+    GL.vertexAttribPointer(attributes.pixel, 2, GL.FLOAT, false, 0, 0);
     GL.enableVertexAttribArray(attributes.pixel);
   
     GL.bindBuffer(GL.ARRAY_BUFFER, buffers.position);
     GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(vertices), GL.STATIC_DRAW);
-    GL.vertexAttribPointer(attributes.position, 2, GL.FLOAT, 0, 0, 0);
+    GL.vertexAttribPointer(attributes.position, 2, GL.FLOAT, false, 0, 0);
     GL.enableVertexAttribArray(attributes.position);
 
-    buffers.lightmap = new Float32Array(grid.length * 4);
     GL.bindBuffer(GL.ARRAY_BUFFER, buffers.light);
-    GL.bufferData(GL.ARRAY_BUFFER, buffers.lightmap, GL.DYNAMIC_DRAW);
-    GL.vertexAttribPointer(attributes.light, 1, GL.FLOAT, 0, 0, 0);
+    GL.bufferData(GL.ARRAY_BUFFER, data.lightmap, GL.DYNAMIC_DRAW);
+    GL.vertexAttribPointer(attributes.light, 1, GL.FLOAT, false, 0, 0);
     GL.enableVertexAttribArray(attributes.light);
   };
 
-  onMount(() => {
+  $effect(() => {
     const hints = {
       alpha: false,
       antialias: false,
@@ -147,15 +167,15 @@
     GL = (
       canvas.getContext('webgl', hints)
       || canvas.getContext('experimental-webgl', hints)
-    );
+    ) as WebGLRenderingContext;
     if (!GL) {
       return;
     }
 
-    const vertex = GL.createShader(GL.VERTEX_SHADER);
+    const vertex = GL.createShader(GL.VERTEX_SHADER)!;
     GL.shaderSource(vertex, vertexShader);
     GL.compileShader(vertex);
-    const fragment = GL.createShader(GL.FRAGMENT_SHADER);
+    const fragment = GL.createShader(GL.FRAGMENT_SHADER)!;
     GL.shaderSource(fragment, fragmentShader);
     GL.compileShader(fragment);
 
@@ -179,34 +199,31 @@
     };
 
     uniforms = {
-      pointer: GL.getUniformLocation(program, 'pointerPosition'),
-      transform: GL.getUniformLocation(program, 'transform'),
+      pointer: GL.getUniformLocation(program, 'pointerPosition')!,
+      transform: GL.getUniformLocation(program, 'transform')!,
     };
 
     GL.uniform1f(GL.getUniformLocation(program, 'pointerHalo'), 300 * scale);
 
     onResize();
     animate(0);
-  });
-
-  onDestroy(() => {
-    cancelAnimationFrame(animation);
-    if (GL) {
-      const extension = GL.getExtension('WEBGL_lose_context');
-      if (extension) {
-        extension.loseContext();
+    return () => {
+      cancelAnimationFrame(animation);
+      if (GL) {
+        const extension = GL.getExtension('WEBGL_lose_context');
+        if (extension) {
+          extension.loseContext();
+        }
       }
-    }
+    };
   });
 </script>
 
 <svelte:window
-  on:mousemove={onMouseMove}
-  on:resize={onResize}
+  onmousemove={onMouseMove}
+  onresize={onResize}
 />
-<canvas
-  bind:this={canvas}
-/>
+<canvas bind:this={canvas}></canvas>
 
 <style>
   canvas {

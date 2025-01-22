@@ -1,80 +1,129 @@
 [
   {
-    "id": "gpucloth",
-    "title": "gpucloth",
-    "tags": ["Voxels", "Simulation", "WebGPU"],
-    "info": "Cloth simulation with compute shaders",
-    "url": "gpucloth.gatunes.com"
-  },
-  {
-    "id": "sculpty",
-    "title": "sculpty",
-    "tags": ["MarchingCubes", "Voxels", "ThreeJS", "WASM"],
-    "info": "Sculpt with voxels that render as marching cubes",
-    "url": "sculpty.gatunes.com"
+    "id": "sdf",
+    "title": "sdf",
+    "tags": ["SDF", "ThreeJS", "GLSL"],
+    "info": "Live shader editor with video encoder for creating seamless loops.",
+    "url": "sdf.gatunes.com"
   },
   {
     "id": "raymarcher",
     "title": "three-raymarcher",
     "tags": ["Raymarching", "ThreeJS"],
-    "info": "Raymarching abstraction for creating simple SDF animations with threejs",
+    "info": "Raymarching abstraction for creating simple SDF animations with threejs.",
     "url": "github.com/danielesteban/three-raymarcher"
   },
   {
-    "id": "softxels",
-    "title": "Softxels",
-    "tags": ["MarchingCubes", "ThreeJS", "WASM"],
-    "info": "A multithreaded marching cubes engine.",
-    "url": "softxels.gatunes.com"
+    "id": "voxelmarch",
+    "title": "voxelmarch",
+    "tags": ["Raymarching", "Voxels", "WebGPU"],
+    "info": "Raymarched voxel volume.",
+    "url": "voxelmarch.gatunes.com"
   },
   {
-    "id": "cubitos",
-    "title": "cubitos",
-    "tags": ["Voxels", "ThreeJS", "WASM"],
-    "info": "Voxel renderer and pathfinder for threejs",
-    "url": "cubitos.gatunes.com"
+    "id": "chato",
+    "title": "chato",
+    "tags": ["LLMs", "Electron", "Svelte"],
+    "info": "GUI for chatting with your LLM of choice with complete privacy.",
+    "url": "github.com/danielesteban/chato"
   },
   {
-    "id": "mementos",
-    "title": "City of Mementos",
-    "tags": ["WebXR", "ThreeJS", "Voxels"],
-    "info": "A multiplayer voxel city where you can record and stumble upon ephemeral audio messages.",
-    "url": "mementos.city"
+    "id": "unsatisfactory",
+    "title": "unsatisfactory",
+    "tags": ["Simulation", "ThreeJS", "WebGL"],
+    "info": "Factory simulation game.",
+    "url": "unsatisfactory.gatunes.com"
   },
   {
-    "id": "spacetrain",
-    "title": "SpaceTrain",
-    "tags": ["WebXR", "ThreeJS", "Physics"],
-    "info": "A combined set of example experiences for the blocks-editor connected by a train. You can enjoy some art, go to a show, play some sports, make some art with physics and more.",
-    "url": "train.gatunes.com"
+    "id": "conundrum",
+    "title": "conundrum",
+    "tags": ["ThreeJS", "Physics", "WebGL"],
+    "info": "Physics puzzle game.",
+    "url": "conundrum.gatunes.com"
   },
   {
-    "id": "trolltower",
-    "title": "TrollTower",
-    "tags": ["WebXR", "ThreeJS", "Physics"],
-    "info": "A multiplayer climbing game.",
-    "url": "trolltower.app"
+    "id": "voxels",
+    "title": "voxels",
+    "tags": ["Multiplayer", "Voxels", "ThreeJS"],
+    "info": "Multiplayer voxel game.",
+    "url": "voxels.gatunes.com"
   },
   {
-    "id": "dudes",
-    "title": "Dudes!",
-    "tags": ["WebXR", "ThreeJS", "WASM"],
-    "info": "An opensource voxel engine with a backend implemented in C, 3D pathfinding and physics.",
-    "url": "dudes.gatunes.com"
+    "id": "r3fvoxels",
+    "title": "r3f-voxels",
+    "tags": ["Voxels", "ThreeJS", "R3F"],
+    "info": "Voxel renderer and pathfinder for react three fiber.",
+    "url": "codesandbox.io/p/sandbox/r3f-voxels-pathfinder-jm3y5r"
+  },
+  {
+    "id": "gametest",
+    "title": "gametest",
+    "tags": ["ThreeJS", "Physics", "WebGL"],
+    "info": "2D platformer prototype.",
+    "url": "gametest.gatunes.com"
+  },
+  {
+    "id": "adventure",
+    "title": "adventure",
+    "tags": ["ThreeJS", "WebGL"],
+    "info": "Point & click adventure prototype.",
+    "url": "adventure.gatunes.com"
+  },
+  {
+    "id": "databoi",
+    "title": "databoi",
+    "tags": ["DataViz", "SQLite", "WASM"],
+    "info": "Data exploration and visualization.",
+    "url": "databoi.gatunes.com/"
+  },
+  {
+    "id": "navigator",
+    "title": "Homebrew Navigator",
+    "tags": ["C++", "OpenGL", "Lua"],
+    "info": "3D scriptable internet navigator.",
+    "url": "navigator.gatunes.com"
+  },
+  {
+    "id": "gpucloth",
+    "title": "gpucloth",
+    "tags": ["Simulation", "WebGPU"],
+    "info": "Cloth simulation with compute shaders.",
+    "url": "gpucloth.gatunes.com"
+  },
+  {
+    "id": "sandbox",
+    "title": "sandbox",
+    "tags": ["Simulation", "Voxels", "WebGPU"],
+    "info": "Sand simulation with compute shaders.",
+    "url": "sandbox.gatunes.com"
   },
   {
     "id": "cells",
-    "title": "Cells",
-    "tags": ["2D", "Physics"],
-    "info": "Experimenting with cellular automatas",
+    "title": "cells",
+    "tags": ["Simulation", "Physics", "WebGL"],
+    "info": "Experimenting with cellular automatas.",
     "url": "cells.gatunes.com"
   },
   {
-    "id": "voxelizer",
-    "title": "PointcloudPhysics",
-    "tags": ["WebGL", "ThreeJS", "Physics"],
-    "info": "An example use case for the blocks-editor voxelizer and the \"export physics\" feature. Realtime physics simulation of a pointcloud mesh.",
-    "url": "voxelizer-ply-boilerplate.glitch.me"
+    "id": "sculpty",
+    "title": "sculpty",
+    "tags": ["MarchingCubes", "Voxels", "ThreeJS", "WASM"],
+    "info": "Sculpt with voxels that render as marching cubes.",
+    "url": "sculpty.gatunes.com"
+  },
+  {
+    "id": "softxels-viewer",
+    "title": "softxels-viewer",
+    "tags": ["MarchingCubes", "ThreeJS", "WASM"],
+    "info": "Generate worlds from pointclouds.",
+    "url": "softxels-viewer.gatunes.com"
+  },
+  {
+    "id": "softxels",
+    "title": "softxels",
+    "tags": ["MarchingCubes", "ThreeJS", "WASM"],
+    "info": "A multithreaded marching cubes engine.",
+    "url": "softxels.gatunes.com"
   },
   {
     "id": "beats",
@@ -89,6 +138,20 @@
     "tags": ["WebXR", "ThreeJS", "Voxels"],
     "info": "A voxel editor with a recursive twist. Create infinite worlds and light them with music in VR.",
     "url": "realms.gatunes.com"
+  },
+  {
+    "id": "spacetrain",
+    "title": "SpaceTrain",
+    "tags": ["WebXR", "ThreeJS", "Physics"],
+    "info": "A combined set of example experiences for the blocks-editor connected by a train. You can enjoy some art, go to a show, play some sports, make some art with physics and more.",
+    "url": "train.gatunes.com"
+  },
+  {
+    "id": "dudes",
+    "title": "Dudes!",
+    "tags": ["WebXR", "ThreeJS", "WASM"],
+    "info": "An opensource voxel engine with a backend implemented in C, 3D pathfinding and physics.",
+    "url": "dudes.gatunes.com"
   },
   {
     "id": "portals",
@@ -124,12 +187,5 @@
     "tags": ["C++", "OpenGL", "GLFW"],
     "info": "A \"modern\" c++ opengl voxels engine.",
     "url": "github.com/danielesteban/opengl"
-  },
-  {
-    "id": "glcannon",
-    "title": "GLCannon",
-    "tags": ["C++", "OpenGL ES", "Android"],
-    "info": "An opensorce C++ OpenGL ES 2.0 engine for Android. Built on top of SDL and the Bullet physics engine, it renders textured meshes with real-time lightning and rigid body simulations at 60FPS in a low-end phone.",
-    "url": "play.google.com/store/apps/details?id=com.gatunes.glcannon"
   }
 ]

@@ -7,26 +7,19 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "start": "pnpm build -w"
+    "build": "vite build",
+    "start": "vite"
   },
   "dependencies": {
-    "fastnoise-lite": "^0.0.1",
-    "gl-matrix": "^3.4.3",
-    "postcss": "^8.4.27"
+    "fastnoise-lite": "^1.1.1",
+    "gl-matrix": "^3.4.3"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.1.0",
-    "@rollup/plugin-terser": "^0.4.3",
-    "rollup": "^3.27.2",
-    "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-serve": "^2.0.2",
-    "rollup-plugin-svelte": "^7.1.6",
-    "sharp": "^0.32.4",
-    "svelte": "^4.1.2",
-    "svelte-preprocess": "^5.0.4"
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@types/node": "^22.10.5",
+    "sharp": "^0.33.5",
+    "svelte": "^5.17.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7"
   }
 }

@@ -7,19 +7,28 @@
   box-sizing: border-box;
 }
 
+:root {
+  font-size: 16px;
+}
+
 body {
   margin: 0;
   background: #141414;
   color: #fff;
+  cursor: default;
   font-family: 'Print Char 21';
   font-size: 0.6rem;
   line-height: 1.6rem;
   font-weight: 400;
   text-shadow: rgba(0, 0, 0, .4) 1px 2px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  touch-action: none;
   user-select: none;
-  cursor: default;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-overflow-scrolling: auto;
 }
 
 @media only screen and (min-width: 512px) {
