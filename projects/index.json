@@ -105,6 +105,13 @@
     "url": "cells.gatunes.com"
   },
   {
+    "id": "synth",
+    "title": "synth",
+    "tags": ["Simulation", "Physics", "WebAudio"],
+    "info": "Physics based synthesizer.",
+    "url": "synth.gatunes.com"
+  },
+  {
     "id": "sculpty",
     "title": "sculpty",
     "tags": ["MarchingCubes", "Voxels", "ThreeJS", "WASM"],
