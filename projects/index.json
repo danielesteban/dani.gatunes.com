@@ -154,13 +154,6 @@
     "url": "train.gatunes.com"
   },
   {
-    "id": "dudes",
-    "title": "Dudes!",
-    "tags": ["WebXR", "ThreeJS", "WASM"],
-    "info": "An opensource voxel engine with a backend implemented in C, 3D pathfinding and physics.",
-    "url": "dudes.gatunes.com"
-  },
-  {
     "id": "portals",
     "title": "Portals",
     "tags": ["WebGL", "ThreeJS"],
