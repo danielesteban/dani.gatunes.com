@@ -2,14 +2,14 @@
   {
     "id": "sdf",
     "title": "sdf",
-    "tags": ["SDF", "ThreeJS", "GLSL"],
+    "tags": ["Raymarching", "ThreeJS", "GLSL"],
     "info": "Live shader editor with video encoder for creating seamless loops.",
     "url": "sdf.gatunes.com"
   },
   {
     "id": "raymarcher",
     "title": "three-raymarcher",
-    "tags": ["Raymarching", "ThreeJS"],
+    "tags": ["Raymarching", "ThreeJS", "GLSL"],
     "info": "Raymarching abstraction for creating simple SDF animations with threejs.",
     "url": "github.com/danielesteban/three-raymarcher"
   },
@@ -37,7 +37,7 @@
   {
     "id": "conundrum",
     "title": "conundrum",
-    "tags": ["ThreeJS", "Physics", "WebGL"],
+    "tags": ["Physics", "ThreeJS", "WebGL"],
     "info": "Physics puzzle game.",
     "url": "conundrum.gatunes.com"
   },
