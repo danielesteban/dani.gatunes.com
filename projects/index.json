@@ -86,9 +86,16 @@
   {
     "id": "gpucloth",
     "title": "gpucloth",
-    "tags": ["Simulation", "WebGPU"],
+    "tags": ["Simulation", "Physics", "WebGPU"],
     "info": "Cloth simulation with compute shaders.",
     "url": "gpucloth.gatunes.com"
+  },
+  {
+    "id": "dots",
+    "title": "dots",
+    "tags": ["Simulation", "Physics", "WebGPU"],
+    "info": "2D simulation with compute shaders.",
+    "url": "dots.gatunes.com"
   },
   {
     "id": "sandbox",
