@@ -1,5 +1,19 @@
 [
   {
+    "id": "vibedoodler",
+    "title": "vibedoodler",
+    "tags": ["Diffusers", "Electron", "Svelte"],
+    "info": "Generate photorealistic renders from doodles.",
+    "url": "vibedoodler.gatunes.com"
+  },
+  {
+    "id": "nyc",
+    "title": "nyc",
+    "tags": ["DataViz", "ThreeJS", "GLSL"],
+    "info": "Visualization of NYC building footprint data.",
+    "url": "nyc.gatunes.com"
+  },
+  {
     "id": "sdf",
     "title": "sdf",
     "tags": ["Raymarching", "ThreeJS", "GLSL"],
