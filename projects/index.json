@@ -182,13 +182,6 @@
     "url": "github.com/danielesteban/portals"
   },
   {
-    "id": "vaporcity",
-    "title": "VaporCity",
-    "tags": ["WebGL", "ThreeJS", "GLSL"],
-    "info": "4 draw-call city.",
-    "url": "vaporcity.glitch.me"
-  },
-  {
     "id": "racer",
     "title": "Racer",
     "tags": ["WebGL", "ThreeJS", "Multiplayer"],
