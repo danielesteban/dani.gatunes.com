@@ -161,13 +161,6 @@
     "url": "beats.gatunes.com"
   },
   {
-    "id": "realms",
-    "title": "Realms",
-    "tags": ["WebXR", "ThreeJS", "Voxels"],
-    "info": "A voxel editor with a recursive twist. Create infinite worlds and light them with music in VR.",
-    "url": "realms.gatunes.com"
-  },
-  {
     "id": "spacetrain",
     "title": "SpaceTrain",
     "tags": ["WebXR", "ThreeJS", "Physics"],
