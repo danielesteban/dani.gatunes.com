@@ -49,6 +49,13 @@
     "url": "github.com/danielesteban/chato"
   },
   {
+    "id": "databoi",
+    "title": "databoi",
+    "tags": ["DataViz", "SQLite", "WASM"],
+    "info": "Data exploration and visualization.",
+    "url": "databoi.gatunes.com/"
+  },
+  {
     "id": "unsatisfactory",
     "title": "unsatisfactory",
     "tags": ["Simulation", "ThreeJS", "WebGL"],
@@ -89,13 +96,6 @@
     "tags": ["ThreeJS", "WebGL"],
     "info": "Point & click adventure prototype.",
     "url": "adventure.gatunes.com"
-  },
-  {
-    "id": "databoi",
-    "title": "databoi",
-    "tags": ["DataViz", "SQLite", "WASM"],
-    "info": "Data exploration and visualization.",
-    "url": "databoi.gatunes.com/"
   },
   {
     "id": "navigator",
