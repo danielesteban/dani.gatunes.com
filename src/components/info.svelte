@@ -7,7 +7,7 @@
   <div class="resources">
     <!-- svelte-ignore a11y_consider_explicit_label -->
     <a
-      href="https://twitter.com/DaniGatunes"
+      href="https://x.com/DaniGatunes"
       rel="noopener noreferrer"
       target="_blank"
     >

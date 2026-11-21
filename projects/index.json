@@ -1,5 +1,19 @@
 [
   {
+    "id": "recursivevoxels",
+    "title": "recursive-voxels",
+    "tags": ["Physics", "Voxels", "WebGPU"],
+    "info": "Recursive voxel worlds with Physics.",
+    "url": "recursive-voxels.gatunes.com"
+  },
+  {
+    "id": "gputerrain",
+    "title": "gputerrain",
+    "tags": ["Raymarching", "WebGPU"],
+    "info": "Chunked infinite raymarched terrain.",
+    "url": "gputerrain.gatunes.com"
+  },
+  {
     "id": "vibedoodler",
     "title": "vibedoodler",
     "tags": ["Diffusers", "Electron", "Svelte"],

@@ -1,10 +1,13 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
+import url from 'node:url';
 import sharp from 'sharp';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig, type UserConfig } from 'vite';
 
-const images = ({ src, dest }) => {
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+
+const images = ({ src, dest }: { src: string; dest: string }) => {
   const images = fs.readdirSync(src).filter((name) => ~name.indexOf('.png'));
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest);
@@ -21,11 +24,16 @@ export default defineConfig(async ({ mode }) => {
     dest: path.join(path.resolve(__dirname, 'public'), 'projects'),
   });
   const config: UserConfig = {
-    build: { assetsDir: 'code' },
-    esbuild: mode === 'production' ? {
-      drop: ['console', 'debugger'],
-      legalComments: 'none',
-    } : {},
+    build: {
+      assetsDir: 'code',
+      rolldownOptions: {
+        output: {
+          minify: mode === 'production' ? {
+            compress: { dropConsole: true },
+          } : {},
+        },
+      },
+    },
     plugins: [
       svelte(),
     ],

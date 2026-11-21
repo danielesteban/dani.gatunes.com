@@ -2,7 +2,7 @@
   // @ts-ignore
   import FastNoise from 'fastnoise-lite';
   import { vec2, mat4 } from 'gl-matrix';
-  import { type MouseEventHandler } from 'svelte/elements';
+  import type { MouseEventHandler } from 'svelte/elements';
 
   let animation: number;
   let attributes: {
